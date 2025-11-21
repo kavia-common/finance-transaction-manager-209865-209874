@@ -1,12 +1,12 @@
 import json
 import os
 
-from src.api.main import app
+# Ensure app and routers are loaded
+from src.api.main import app  # noqa: F401
 
-# Get the OpenAPI schema
+# Generate and write OpenAPI schema
 openapi_schema = app.openapi()
 
-# Write to file
 output_dir = "interfaces"
 os.makedirs(output_dir, exist_ok=True)
 output_path = os.path.join(output_dir, "openapi.json")
