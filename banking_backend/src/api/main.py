@@ -20,7 +20,7 @@ app = FastAPI(
     ],
 )
 
-# Configure CORS
+# Configure CORS (safe even if .env not present)
 settings = get_settings()
 allow_origins: List[str] = [o.strip() for o in settings.cors_allow_origins.split(",") if o.strip()]
 app.add_middleware(

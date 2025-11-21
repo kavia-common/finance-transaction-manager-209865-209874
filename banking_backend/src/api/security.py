@@ -23,6 +23,10 @@ def get_password_hash(password: str) -> str:
 def create_access_token(subject: str, expires_delta: Optional[timedelta] = None) -> str:
     """Create a JWT access token for the given subject (typically the username)."""
     settings = get_settings()
+    if settings.secret_key is None:
+        raise RuntimeError(
+            "SECRET_KEY is not configured. Set SECRET_KEY in the environment or in banking_backend/.env."
+        )
     if expires_delta is None:
         expires_delta = timedelta(minutes=settings.access_token_expire_minutes)
     expire = datetime.now(timezone.utc) + expires_delta
@@ -35,5 +39,9 @@ def create_access_token(subject: str, expires_delta: Optional[timedelta] = None)
 def decode_access_token(token: str) -> Dict[str, Any]:
     """Decode a JWT access token and return the payload."""
     settings = get_settings()
+    if settings.secret_key is None:
+        raise RuntimeError(
+            "SECRET_KEY is not configured. Set SECRET_KEY in the environment or in banking_backend/.env."
+        )
     payload = jwt.decode(token, settings.secret_key, algorithms=["HS256"])
     return payload
