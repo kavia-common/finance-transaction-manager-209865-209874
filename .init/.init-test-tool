@@ -1,0 +1,4 @@
+{
+    "command": "pytest",
+    "working_directory": "/home/kavia/workspace/code-generation/finance-transaction-manager-209865-209874/banking_backend"
+}
